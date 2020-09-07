@@ -144,12 +144,11 @@ server.post("/auth/refresh", (req, res) => {
 });
 
 server.use(/^(?!\/auth).*$/, (req, res, next) => {
-  console.log('pop');
   if (
     req.headers.authorization === undefined ||
     req.headers.authorization.split(" ")[0] !== "Bearer"
   ) {
-    const status = 401;
+    const status = 400;
     const message = "Error in authorization format";
     res.status(status).json({ status, message });
     return;
